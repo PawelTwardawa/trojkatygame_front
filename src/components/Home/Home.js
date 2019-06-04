@@ -43,6 +43,7 @@ class Home extends Component
         }
         else{
             this.setState({redirect: true});
+            return;
         }
 
         //console.log(sessionStorage.getItem("token"));

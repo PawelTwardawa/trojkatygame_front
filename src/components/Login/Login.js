@@ -1,6 +1,8 @@
 import React, {Component} from "react"
 import PostData from "../../services/PostData"
 import {Redirect} from "react-router-dom";
+import {Button, FormGroup, FormControl, Form} from "react-bootstrap"
+import "./Login.css"
 
 
 class Login extends Component
@@ -58,29 +60,36 @@ class Login extends Component
                 );
         }
 
-
         return(
-            <div>
-                <header>
-                    <h1>Trojkaty game</h1>
-                    <h3>Login</h3>
-                </header>
-                <div className="body">
-                    <p>
-                        <label>Username</label>
-                        <input type="text" name="Email" onChange={this.onChange} />
-                    </p>
-                    <p>
-                        <label>Password</label>
-                        <input type="password" name="password" onChange={this.onChange} />
-                    </p>
-                    <input type="button" name="login" onClick={this.login} value="Login"/>
+                <div className="Login">
+                    <Form>
+                        <FormGroup controlId="text">
+                            <label>Email</label>
+                            <FormControl autoFocus type="email" name="Email" onChange={this.onChange} />
+                        </FormGroup>
+                        <FormGroup controlId="password">
+                            <label>Password</label>
+                            <FormControl type="password" name="password" onChange={this.onChange} />
+                        </FormGroup>
+                        <Button block type="button" onClick={this.login} >Login</Button>
+                    </Form>
                 </div>
-                <footer>
+            );
 
-                </footer>
-            </div>
-        );
+
+        // return(
+        //     <div className="Login">
+        //         <form>
+        //             <label>Username</label>
+        //             <input type="text" name="Email" onChange={this.onChange} />
+                
+        //             <label>Password</label>
+        //             <input type="password" name="password" onChange={this.onChange} />
+                
+        //         <input type="button" name="login" onClick={this.login} value="Login"/>
+        //         </form>
+        //     </div>
+        // );
     }
 }
 
