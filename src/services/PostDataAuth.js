@@ -1,14 +1,14 @@
-export function GetData(token, url)
+export function PostDataAuth(token, userData, url)
 {
     return new Promise((resolve, reject) => {
         fetch(url, {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + token,
-                //'Host': 'api.trojkatygame.com'
-            }
+                "Authorization" : "Bearer " + token
+            },
+            body: JSON.stringify(userData)
         })
         .then((response) => response.json())
         .then((responseJSON) => {
@@ -20,4 +20,4 @@ export function GetData(token, url)
     });
 }
 
-export default GetData;
+export default PostDataAuth;

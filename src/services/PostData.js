@@ -1,7 +1,6 @@
 export function PostData(userData, url)
 {
     return new Promise((resolve, reject) => {
-        //fetch("https://api.trojkatygame.tk/api/users/authenticate", {
         fetch(url, {
             method: "POST",
             headers: {

@@ -1,5 +1,6 @@
 import React, {Component}  from "react"
 import PutData from "../../services/PutData"
+import {Container, Col, Row, Button} from "react-bootstrap"
 
 
 class QuestionElement extends Component
@@ -68,18 +69,42 @@ class QuestionElement extends Component
     render()
     {
         return(
-            <div>
-                Pytanie: {this.props.questionText} <br/>
-                Correct answer: {this.props.correctAnswer} <br/>
-                Incorrect answer 1: {this.props.incorrectAnswer1} <br/>
-                Incorrect answer 2:{this.props.incorrectAnswer2} <br/>
-                Incorrect answer 3:{this.props.incorrectAnswer3} <br/>
+            <Container className="border border-dark mt-4">
+                <Row >  
+                    <Col xs={12} >
+                        <h4>Pytanie: </h4> 
+                        <h6>{this.props.questionText}</h6>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12} md={6}>
+                        <h5>Correct answer: </h5> 
+                        <h6>{this.props.correctAnswer}</h6>
+                    </Col>
+                    <Col xs={12} md={6}>
+                        <h5>Incorrect answer 1: </h5>  
+                        <h6>{this.props.incorrectAnswer1}</h6>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12} md={6}>
+                    <h5>Incorrect answer 2: </h5>  
+                        <h6>{this.props.incorrectAnswer2}</h6>
+                    </Col>
+                    <Col xs={12} md={6}>
+                    <h5>Incorrect answer 3: </h5>  
+                        <h6>{this.props.incorrectAnswer3}</h6>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12} className="mb-2">
 
-                <button onClick={this.publish} >Publish</button> 
-                <button onClick={this.notPublish} >Do not publish</button> 
-                <br/><br/>
+                        <Button className="mr-1" variant="outline-primary" onClick={this.publish} >Publish</Button> 
 
-            </div>
+                        <Button variant="outline-danger" onClick={this.notPublish} >Do not publish</Button> 
+                    </Col>
+                </Row>              
+            </Container>
         );
     }
 }

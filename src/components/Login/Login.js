@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import PostData from "../../services/PostData"
 import {Redirect} from "react-router-dom";
-import {Button, FormGroup, FormControl, Form} from "react-bootstrap"
+import {Button, Form} from "react-bootstrap"
 import "./Login.css"
 
 
@@ -13,8 +13,8 @@ class Login extends Component
         this.state = {
             Email: '',
             password: '',
-            redirect: false
-
+            redirect: false,
+            error: ""
         }
         this.login = this.login.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -28,12 +28,14 @@ class Login extends Component
             //console.log(responseJSON);
             if(responseJSON.token)
             {
-                sessionStorage.setItem('userData', responseJSON);
-                sessionStorage.setItem('token', responseJSON.token);
-                this.setState({redirect: true});
+                sessionStorage.setItem("userData", responseJSON);
+                sessionStorage.setItem("token", responseJSON.token);
+                this.props.changeLoggedState(true);
+                //this.setState({redirect: true});
             }
             else{
                 //console.log(responseJSON.message);
+                this.setState({error: responseJSON.message});
             }
         })
     }
@@ -45,51 +47,30 @@ class Login extends Component
     }
 
     render() {
-
-        if(this.state.redirect)
+           
+        if(this.props.isLoggedIn())
         {
             return(
-                <Redirect to="/" />
-                );
-        }
-
-        if(sessionStorage.getItem('userData'))
-        {
-            return(
-                <Redirect to="/" />
+                <Redirect to="/admin" />
                 );
         }
 
         return(
                 <div className="Login">
                     <Form>
-                        <FormGroup controlId="text">
-                            <label>Email</label>
-                            <FormControl autoFocus type="email" name="Email" onChange={this.onChange} />
-                        </FormGroup>
-                        <FormGroup controlId="password">
-                            <label>Password</label>
-                            <FormControl type="password" name="password" onChange={this.onChange} />
-                        </FormGroup>
+                        <Form.Group controlId="text">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control autoFocus type="email" name="Email" onChange={this.onChange} />
+                        </Form.Group>
+                        <Form.Group controlId="password">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" name="password" onChange={this.onChange} />
+                        </Form.Group>
                         <Button block type="button" onClick={this.login} >Login</Button>
+                        <Form.Label id="error-label">{this.state.error}</Form.Label>
                     </Form>
                 </div>
             );
-
-
-        // return(
-        //     <div className="Login">
-        //         <form>
-        //             <label>Username</label>
-        //             <input type="text" name="Email" onChange={this.onChange} />
-                
-        //             <label>Password</label>
-        //             <input type="password" name="password" onChange={this.onChange} />
-                
-        //         <input type="button" name="login" onClick={this.login} value="Login"/>
-        //         </form>
-        //     </div>
-        // );
     }
 }
 

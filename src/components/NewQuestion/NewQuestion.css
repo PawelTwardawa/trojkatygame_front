@@ -1,0 +1,11 @@
+div.question-form
+{
+    margin: auto;
+    max-width: 700px;
+    padding: 60px;
+}
+
+Label#error-label
+    {
+      color: rgb(255, 49, 49);
+    }
