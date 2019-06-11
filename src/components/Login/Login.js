@@ -1,7 +1,7 @@
 import React, {Component} from "react"
-import PostData from "../../services/PostData"
 import {Redirect} from "react-router-dom";
 import {Button, Form} from "react-bootstrap"
+import axios from "axios"
 import "./Login.css"
 
 
@@ -22,22 +22,23 @@ class Login extends Component
 
     login()
     {
-        //console.log(this.state);
-        PostData(this.state, "https://api.trojkatygame.tk/api/users/authenticate").then((result) => {
-            let responseJSON = result;
-            //console.log(responseJSON);
-            if(responseJSON.token)
+        axios.post("https://api.trojkatygame.tk/api/users/authenticate", this.state, 
+        {
+            headers: {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",
+            }
+        }).then(res => 
             {
-                sessionStorage.setItem("userData", responseJSON);
-                sessionStorage.setItem("token", responseJSON.token);
+                sessionStorage.setItem("userData", res.data.token);
+                sessionStorage.setItem("token", res.data.token);
                 this.props.changeLoggedState(true);
-                //this.setState({redirect: true});
-            }
-            else{
-                //console.log(responseJSON.message);
-                this.setState({error: responseJSON.message});
-            }
-        })
+            }).catch(error => 
+            {
+                //console.log(error.response);
+                if(error.response.status === 400)
+                this.setState({error : error.response.data.message});
+            })
     }
 
     onChange(e)

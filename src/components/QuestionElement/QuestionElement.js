@@ -1,6 +1,6 @@
 import React, {Component}  from "react"
-import PutData from "../../services/PutData"
 import {Container, Col, Row, Button} from "react-bootstrap"
+import axios from "axios"
 
 
 class QuestionElement extends Component
@@ -29,38 +29,45 @@ class QuestionElement extends Component
     {
         //console.log("publish " + this.state.question.id);
 
-        PutData(sessionStorage.getItem("token"), "https://api.trojkatygame.tk/api/Validate/confirm?id=" + this.props.id + "&publish=true").then((result) => {
-            let responseJSON = result;
-            //console.log(responseJSON);
-            if(responseJSON)
+        axios.put("https://api.trojkatygame.tk/api/Validate/confirm?id=" + this.props.id + "&publish=true", "", 
+        {
+            headers: {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + sessionStorage.getItem("token")
+            }
+        })
+        .then(res => 
             {
-                //console.log("question submited");
+                
 
-                onclick=this.props.delEvent;
-            }
-            else{
-                //console.log(responseJSON.status);
-            }
-        });
+            }).catch(error => 
+            {
+                console.log(error.response);
+            })
 
-        onclick=this.props.delEvent;
+            onclick=this.props.delEvent;
     }
 
     notPublish()
     {
         console.log("dont publish " + this.state.question.id);
 
-        PutData(sessionStorage.getItem("token"), "https://api.trojkatygame.tk/api/Validate/confirm?id=" + this.props.id + "&publish=false").then((result) => {
-            let responseJSON = result;
-            //console.log(responseJSON);
-            if(responseJSON)
+        axios.put("https://api.trojkatygame.tk/api/Validate/confirm?id=" + this.props.id + "&publish=false", "", 
+        {
+            headers: {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + sessionStorage.getItem("token")
+            }
+        })
+        .then(res => 
             {
-                //console.log("question submited");
-            }
-            else{
-                //console.log(responseJSON.status);
-            }
-        });
+
+            }).catch(error => 
+            {
+                console.log(error.response);
+            })
 
         onclick=this.props.delEvent;
     }

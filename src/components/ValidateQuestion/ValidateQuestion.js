@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import {Redirect} from "react-router-dom"
 import QuestionComponent from "../QuestionElement/QuestionElement"
-import GetData from "../../services/GetData"
+import axios from "axios"
 
 class ValidateQuestion extends Component
 {
@@ -19,22 +19,21 @@ class ValidateQuestion extends Component
     {
         if(this.props.isLoggedIn())
         {
-            GetData(sessionStorage.getItem("token"), "https://api.trojkatygame.tk/api/Validate/all").then((result) => {
-                let responseJSON = result;
-                //console.log(responseJSON);
-                //console.log(responseJSON);
-                if(responseJSON)
-                {
-                    //questions = [];
+            axios.get("https://api.trojkatygame.tk/api/Validate/all", 
+        {
+            headers: {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + sessionStorage.getItem("token")
+            }
+        }).then(res => 
+            {
+                this.setState({questions: res.data});
+                //console.log(this.state.categories);
 
-                    this.setState({questions: responseJSON});
-                    //console.log("Ok");
-
-                    //this.setState({redirect: true});
-                }
-                else{
-                    //console.log(responseJSON.status);
-                }
+            }).catch(error => 
+            {
+                console.log(error.response);
             })
         }
     }
