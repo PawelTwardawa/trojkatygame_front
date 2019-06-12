@@ -54,7 +54,7 @@ class App extends Component
   render()
   {
 
-    console.log(this.isLoggedIn());
+    //console.log(this.isLoggedIn());
     return (
           //<div className="App">
             <BrowserRouter>

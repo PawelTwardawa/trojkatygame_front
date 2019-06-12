@@ -79,7 +79,7 @@ class QuestionElement extends Component
             <Container className="border border-dark mt-4">
                 <Row >  
                     <Col xs={12} >
-                        <h4>Pytanie: </h4> 
+                        <h4>Quesetion: </h4> 
                         <h6>{this.props.questionText}</h6>
                     </Col>
                 </Row>
@@ -101,6 +101,12 @@ class QuestionElement extends Component
                     <Col xs={12} md={6}>
                     <h5>Incorrect answer 3: </h5>  
                         <h6>{this.props.incorrectAnswer3}</h6>
+                    </Col>
+                </Row>
+                <Row >  
+                    <Col xs={12} >
+                        <h4>Category: </h4> 
+                        <h6>{this.props.category}</h6>
                     </Col>
                 </Row>
                 <Row>

@@ -37,9 +37,9 @@ class Navigation extends Component
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="/ValidateQuestion">Validate Questions</Nav.Link>
-                        <Nav.Link href="/newCategory">New Category</Nav.Link>
-                        <Nav.Link href="/newQuestion">New Question</Nav.Link>
+                        <Nav.Link href="/ValidateQuestion">Validate questions</Nav.Link>
+                        <Nav.Link href="/newCategory">New category</Nav.Link>
+                        <Nav.Link href="/newQuestion">New question</Nav.Link>
                     </Nav>
                     <Button variant="outline-info" onClick={this.logout}>Logout</Button>
                     </Navbar.Collapse>

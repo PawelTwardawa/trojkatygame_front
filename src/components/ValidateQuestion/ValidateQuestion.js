@@ -20,7 +20,7 @@ class ValidateQuestion extends Component
         if(this.props.isLoggedIn())
         {
             axios.get("https://api.trojkatygame.tk/api/Validate/all", 
-        {
+            {
             headers: {
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",
@@ -67,6 +67,7 @@ class ValidateQuestion extends Component
                     incorrectAnswer1={question.incorrectAnswer1}
                     incorrectAnswer2={question.incorrectAnswer2}
                     incorrectAnswer3={question.incorrectAnswer3}
+                    category={question.category}
                     delEvent={this.deleteQuestion.bind(this, index)}
                 />
                     );
