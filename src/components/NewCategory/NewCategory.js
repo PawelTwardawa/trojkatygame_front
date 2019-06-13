@@ -1,7 +1,8 @@
 import React, {Component} from "react"
 import {Redirect} from "react-router-dom"
-import {Form, Button} from "react-bootstrap"
+import {Form, Button, Container, Row, Col} from "react-bootstrap"
 import axios from "axios"
+import "./NewCategory.css"
 
 class NewCategory extends Component
 {
@@ -11,7 +12,8 @@ class NewCategory extends Component
 
         this.state = {
             error: "",
-            category : ""
+            category : "",
+            categories : []
 
         }
 
@@ -23,7 +25,24 @@ class NewCategory extends Component
 
     componentDidMount()
     {
+        axios.get("https://api.trojkatygame.tk/api/category/all", 
+        {
+            headers: {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + sessionStorage.getItem("token")
+            }
+        }).then(res => 
+            {
+                this.setState({categories : res.data});
+                //console.log(this.state.categories);
 
+            }).catch(error => 
+            {
+                //console.log(error.response);
+                if(error.response.status === 400)
+                this.setState({error : error.response.data.message});
+            })
     }
 
     onChange(e)
@@ -71,18 +90,32 @@ class NewCategory extends Component
         }
 
         return(
-            <div className="question-form">
-            <Form>
-                <Form.Label id="error-label">{this.state.error}</Form.Label>
-                <Form.Group controlId="text">
-                    <Form.Label>Category</Form.Label>
-                    <Form.Control type="text" name="category"  onChange={this.onChange} placeholder="enter new question"/>
-                </Form.Group>
-                <Button type="button" onClick={this.addCategory} >Save</Button>
-                
-          </Form>
-
-            </div>
+            <Container fluid="true" className="content">
+            <Row className="justify-content-center " >
+                <Col  md={6} className="category-form">
+                    <Form>
+                        <Form.Label id="error-label">{this.state.error}</Form.Label>
+                        <Form.Group controlId="text">
+                            <Form.Label>Category</Form.Label>
+                            <Form.Control type="text" name="category"  onChange={this.onChange} placeholder="enter new question"/>
+                        </Form.Group>
+                        <Button type="button" onClick={this.addCategory} >Save</Button>
+                        
+                    </Form>
+                </Col>
+                <Col  md={6} className="mt-3 mt-md-1">
+                    <h3>Existing categories</h3>
+                    <ul>
+                    {this.state.categories.map((category, index) =>
+                    {
+                        return(
+                            <li>{category.name}</li>
+                        );
+                    })}
+                    </ul>
+                </Col>
+            </Row>
+            </Container>
         );
     }
 };
